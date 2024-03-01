@@ -82,10 +82,10 @@ struct AvatarView: View {
                             Image(avatar.image)
                                 .resizable()
                                 .scaledToFit()
-                                .frame(width: 80, height: 80)
+                                .frame(width: 75, height: 75)
                                 .clipShape(Circle())
                                 .padding(3)
-                                .background(selection == avatar.image ? ai_red.opacity(0.7) : Color.clear)
+                                .background(selection == avatar.image ? ai_red.opacity(0.7) : ai_grey.opacity(0.2))
                                 .clipShape(Circle())
                             
                             Text(avatar.title)
