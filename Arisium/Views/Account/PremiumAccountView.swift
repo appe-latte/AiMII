@@ -59,6 +59,7 @@ struct PremiumAccountView: View {
         .edgesIgnoringSafeArea(.all)
     }
     
+    // MARK: Custom "dismiss" button
     private var closeButton: some View {
         HStack {
             Button {
@@ -75,10 +76,12 @@ struct PremiumAccountView: View {
         }
     }
     
+    // MARK: Premium Features
     private var premiumFeatures: some View {
         Text("1. Access to Chat GPT-4: The latest, most powerful AI.\n2. Ads-free experience\n3. High word limit for queries\n4. Unlimited questions & answers\n5. More accurate, detailed responses\n6. Advanced understanding of context and nuance.\n7. Priority support and updates")
             .font(.system(size: 16, weight: .medium, design: .rounded))
             .kerning(2)
+            .foregroundColor(ai_black)
             .lineSpacing(10)
             .padding()
     }

@@ -10,122 +10,183 @@ import FirebaseCore
 import FirebaseFirestore
 
 struct UserAccountView: View {
-    @State var isAvatar = false
-    @State var isLoading = false
-    @State var avatar = UserDefaults.standard.string(forKey: "PROFILE") ?? "avt1"
+    @State private var isAvatar = false
+    @State private var isLoading = false
+    @State private var avatar = UserDefaults.standard.string(forKey: "PROFILE") ?? "avt1"
     
-    @State var first = UserDefaults.standard.string(forKey: "NAME") ?? "Your Name"
-    @State var email = UserDefaults.standard.string(forKey: "EMAIL") ?? "example@domain.com"
+    @State private var firstName = UserDefaults.standard.string(forKey: "NAME") ?? "Your Name"
+    @State private var email = UserDefaults.standard.string(forKey: "EMAIL") ?? "example@domain.com"
     
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
-        VStack {
-            HStack {
-                Button {
-                    presentationMode.wrappedValue.dismiss()
-                } label: {
-                    Image(systemName: "arrow.left")
-                        .bold()
-                        .foregroundColor(.white)
-                }
-                .foregroundColor(.black)
+        ZStack {
+            VStack {
+                // Navigation Bar
+                navigationBar
                 
-                Text("  My Account")
-                    .font(.title2)
-                    .bold()
+                // Avatar
+                avatarSelection
+                
+                // Form
+                accountForm
+                
+                // "Save" button
+                saveButton
                 
                 Spacer()
             }
-            .padding(.horizontal)
-            .padding(.horizontal)
-            .frame(maxWidth: .infinity)
-            .frame(height: 60)
+        }
+        .background(background())
+    }
+    
+    private var navigationBar: some View {
+        HStack(spacing: 10) {
+            Button(action: { presentationMode.wrappedValue.dismiss() }) {
+                Image(systemName: "chevron.left")
+                    .fontWeight(.heavy)
+                    .padding(10)
+                    .background(ai_black)
+                    .foregroundColor(ai_white)
+                    .clipShape(Circle())
+            }
+            
+            Text("Your Profile")
+                .font(.system(size: 22, weight: .heavy, design: .rounded))
+                .kerning(1)
+                .textCase(.uppercase)
+                .foregroundColor(ai_black)
             
             
-            
-            VStack {
-                Button {
-                    isAvatar.toggle()
-                } label: {
-                    Image("\(avatar)")
+            Spacer()
+        }
+        .padding()
+    }
+    
+    // MARK: Avatar Edit
+    private var avatarSelection: some View {
+        VStack(spacing: 5) {
+            Button(action: { isAvatar.toggle() }) {
+                if let image = UIImage(named: avatar) {
+                    Image(uiImage: image)
                         .resizable()
                         .scaledToFit()
                         .frame(width: 100, height: 100)
                         .clipShape(Circle())
                         .padding(6)
-                        .background(.white.opacity(0.1))
+                        .background(ai_black)
                         .clipShape(Circle())
+                } else {
+                    Circle()
+                        .fill(ai_grey)
+                        .frame(width: 100, height: 100)
+                        .overlay(
+                            Text("+").foregroundColor(ai_white)
+                        )
                 }
-                
-                Button {
-                    isAvatar.toggle()
-                } label: {
-                    Text("Change Profile")
-                        .font(.caption)
-                }
-                .sheet(isPresented: $isAvatar, onDismiss: {
-                    avatar = UserDefaults.standard.string(forKey: "PROFILE") ?? "avt1"
-                }) {
+            }
+            
+            Button("Edit") { isAvatar.toggle() }
+                .font(.system(size: 14, weight: .bold, design: .rounded))
+                .textCase(.uppercase)
+                .kerning(0.5)
+                .foregroundColor(ai_black)
+                .sheet(isPresented: $isAvatar) {
+                    avatar = UserDefaults.standard.string(forKey: "PROFILE") ?? "default_avatar"
+                } content: {
                     AvatarView()
                 }
-                
-                VStack {
-                    TextField("First Name", text: $first)
-                        .padding()
-                        .foregroundColor(.white)
-                        .autocorrectionDisabled()
-                    
-                    Divider()
-                    
-                    TextField("Email", text: $email)
-                        .padding()
-                        .foregroundColor(.white)
-                        .autocorrectionDisabled()
-                }
-                .padding()
-                .frame(maxWidth: .infinity)
-                .overlay(RoundedRectangle(cornerRadius: 20).stroke(.white.opacity(0.3), lineWidth: 2))
-                .padding()
-                
-            }
-            
-            Spacer()
-            
-            Button {
-                let db = Firestore.firestore()
-                let data : [String: Any] = [
-                    "NAME" : first,
-                    "EMAIL" : email,
-                    "PROFILE" : "avt1",
-                ]
-                
-                UserDefaults.standard.set(first, forKey: "NAME")
-                UserDefaults.standard.set("avt1", forKey: "PROFILE")
-                UserDefaults.standard.set(email, forKey: "EMAIL")
-                
-                db.collection("USERS").addDocument(data: data)
-                isLoading.toggle()
-                
-                presentationMode.wrappedValue.dismiss()
-            } label: {
-                if isLoading {
-                    ProgressView()
-                        .padding()
-                        .tint(.black)
-                } else {
-                    Image(systemName: "arrow.right")
-                        .padding()
-                }
-            }
-            .background(.white)
-            .foregroundColor(.black)
-            .clipShape(Circle())
-            
         }
-        .background(Image("gradient").resizable().scaledToFill().blur(radius: 150))
-        .background(.black)
-        .foregroundColor(.white)
+    }
+    
+    // MARK: Background
+    @ViewBuilder
+    func background() -> some View {
+        GeometryReader { proxy in
+            let size = proxy.size
+            
+            Image("bg-img")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .offset(y: -50)
+                .frame(width: size.width, height: size.height + 50)
+                .clipped()
+        }
+        .edgesIgnoringSafeArea(.all)
+    }
+    
+    // MARK: Profile Form
+    private var accountForm: some View {
+        VStack {
+            TextField("First Name", text: $firstName)
+                .font(.system(size: 12, weight: .medium, design: .rounded))
+                .textCase(.uppercase)
+                .kerning(0.5)
+                .padding()
+                .background(ai_grey.opacity(0.15))
+                .cornerRadius(10)
+                .foregroundColor(ai_white)
+                .autocorrectionDisabled()
+            
+            Divider()
+            
+            TextField("Email", text: $email)
+                .font(.system(size: 12, weight: .medium, design: .rounded))
+                .textCase(.uppercase)
+                .kerning(0.5)
+                .padding()
+                .background(ai_grey.opacity(0.15))
+                .cornerRadius(10)
+                .foregroundColor(ai_white)
+                .autocorrectionDisabled()
+        }
+        .padding()
+        .background(ai_black)
+        .cornerRadius(20)
+        .padding()
+    }
+    
+    private var saveButton: some View {
+        Button(action: saveAccountInfo) {
+            if isLoading {
+                ProgressView()
+                    .padding()
+                    .tint(.white)
+            } else {
+                Image(systemName: "checkmark")
+                    .padding()
+            }
+        }
+        .fontWeight(.heavy)
+        .padding(10)
+        .background(ai_black)
+        .foregroundColor(ai_white)
+        .clipShape(Circle())
+    }
+    
+    private func saveAccountInfo() {
+        isLoading = true
+        let db = Firestore.firestore()
+        let data: [String: Any] = [
+            "NAME": firstName,
+            "EMAIL": email,
+            "PROFILE": avatar,
+        ]
+        
+        // Assuming "UID" is correctly stored in UserDefaults and valid
+        if let userID = UserDefaults.standard.string(forKey: "UID") {
+            db.collection("USERS").document(userID).setData(data) { error in
+                isLoading = false
+                if let error = error {
+                    print("Error updating document: \(error)")
+                } else {
+                    UserDefaults.standard.set(firstName, forKey: "NAME")
+                    UserDefaults.standard.set(email, forKey: "EMAIL")
+                    UserDefaults.standard.set(avatar, forKey: "PROFILE")
+                    presentationMode.wrappedValue.dismiss()
+                }
+            }
+        }
     }
 }
 
