@@ -10,12 +10,12 @@ import FirebaseCore
 import FirebaseFirestore
 
 struct UserAccountView: View {
+    @State private var avatar = UserDefaults.standard.string(forKey: "PROFILE") ?? "avt1"
+    @State private var userName = UserDefaults.standard.string(forKey: "NAME") ?? "Username"
+    @State private var email = UserDefaults.standard.string(forKey: "EMAIL") ?? "example@domain.com"
+    
     @State private var isAvatar = false
     @State private var isLoading = false
-    @State private var avatar = UserDefaults.standard.string(forKey: "PROFILE") ?? "avt1"
-    
-    @State private var firstName = UserDefaults.standard.string(forKey: "NAME") ?? "Your Name"
-    @State private var email = UserDefaults.standard.string(forKey: "EMAIL") ?? "example@domain.com"
     
     @Environment(\.presentationMode) var presentationMode
     
@@ -118,7 +118,7 @@ struct UserAccountView: View {
     // MARK: Profile Form
     private var accountForm: some View {
         VStack {
-            TextField("First Name", text: $firstName)
+            TextField("Username", text: $userName)
                 .font(.system(size: 12, weight: .medium, design: .rounded))
                 .textCase(.uppercase)
                 .kerning(0.5)
@@ -168,7 +168,7 @@ struct UserAccountView: View {
         isLoading = true
         let db = Firestore.firestore()
         let data: [String: Any] = [
-            "NAME": firstName,
+            "NAME": userName,
             "EMAIL": email,
             "PROFILE": avatar,
         ]
@@ -180,7 +180,7 @@ struct UserAccountView: View {
                 if let error = error {
                     print("Error updating document: \(error)")
                 } else {
-                    UserDefaults.standard.set(firstName, forKey: "NAME")
+                    UserDefaults.standard.set(userName, forKey: "NAME")
                     UserDefaults.standard.set(email, forKey: "EMAIL")
                     UserDefaults.standard.set(avatar, forKey: "PROFILE")
                     presentationMode.wrappedValue.dismiss()

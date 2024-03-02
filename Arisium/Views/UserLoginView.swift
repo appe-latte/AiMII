@@ -19,8 +19,7 @@ struct UserLoginView: View {
     
     @State var email : String = ""
     @State var password : String = ""
-    @State var first : String = ""
-    @State var last : String = ""
+    @State var userName : String = ""
     
     @State var isUserSignedUp = false
     @State var isUserSignedIn = false
@@ -40,27 +39,21 @@ struct UserLoginView: View {
                 
                 if isShort {
                     Text(isUserSignedUp ? "Create new account" : "Let’s get Started")
-                        .font(.system(size: 36))
-                        .fontWeight(.semibold)
+                        .font(.system(size: 32, weight: .heavy, design: .rounded))
+                        .textCase(.uppercase)
                         .multilineTextAlignment(.center)
-                        .foregroundColor(.white)
+                        .foregroundColor(ai_black)
                         .opacity(isShow ? 1 : 0)
                     
                     VStack {
                         if isUserSignedUp {
                             HStack {
-                                TextField("First Name", text: $first)
-                                    .padding()
-                                    .foregroundColor(.white)
-                                    .autocorrectionDisabled()
-                                
-                                Divider()
-                                
-                                TextField("Last Name", text: $last)
+                                TextField("Username", text: $userName)
                                     .padding()
                                     .foregroundColor(.white)
                                     .autocorrectionDisabled()
                             }
+                            
                             Divider()
                         }
                         
@@ -89,13 +82,13 @@ struct UserLoginView: View {
                                                     } else {
                                                         let db = Firestore.firestore()
                                                         let data : [String: Any] = [
-                                                            "NAME" : first + " " + last,
+                                                            "NAME" : userName,
                                                             "EMAIL" : email,
                                                             "PROFILE" : "avt1",
                                                         ]
                                                         
                                                         UserDefaults.standard.set(result?.user.uid, forKey: "UID")
-                                                        UserDefaults.standard.set(first + " " + last, forKey: "NAME")
+                                                        UserDefaults.standard.set(userName, forKey: "NAME")
                                                         UserDefaults.standard.set("avt1", forKey: "PROFILE")
                                                         UserDefaults.standard.set(email, forKey: "EMAIL")
                                                         
@@ -165,7 +158,7 @@ struct UserLoginView: View {
                     }
                     .padding()
                     .frame(maxWidth: .infinity)
-                    .overlay(RoundedRectangle(cornerRadius: 20).stroke(.white.opacity(0.3), lineWidth: 2))
+                    .overlay(RoundedRectangle(cornerRadius: 20).stroke(ai_black, lineWidth: 2))
                     .opacity(isShow ? 1 : 0)
                     .padding()
                     
@@ -273,8 +266,7 @@ struct UserLoginView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .ignoresSafeArea()
-            .background(Image("gradient").resizable().scaledToFill().blur(radius: 150))
-            .background(.black)
+            .background(background())
             .foregroundColor(.white)        .onAppear() {
                 withAnimation(.easeIn(duration: 1)) {
                     scale = scale == 1.0 ? 0.4 : 0.4
@@ -291,6 +283,22 @@ struct UserLoginView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             
         }
+    }
+    
+    // MARK: Background
+    @ViewBuilder
+    func background() -> some View {
+        GeometryReader { proxy in
+            let size = proxy.size
+            
+            Image("bg-img")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .offset(y: -50)
+                .frame(width: size.width, height: size.height + 50)
+                .clipped()
+        }
+        .edgesIgnoringSafeArea(.all)
     }
 }
 

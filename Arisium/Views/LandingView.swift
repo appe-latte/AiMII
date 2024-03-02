@@ -42,10 +42,25 @@ struct LandingView: View {
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Image("gradient").resizable().scaledToFill().blur(radius: 150))
-            .background(.black)
+            .background(background())
             .foregroundColor(.white)
         }
+    }
+    
+    // MARK: Background
+    @ViewBuilder
+    func background() -> some View {
+        GeometryReader { proxy in
+            let size = proxy.size
+            
+            Image("bg-img")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .offset(y: -50)
+                .frame(width: size.width, height: size.height + 50)
+                .clipped()
+        }
+        .edgesIgnoringSafeArea(.all)
     }
 }
 

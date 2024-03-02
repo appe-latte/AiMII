@@ -13,24 +13,28 @@ struct UserPromptsView: View {
     var body: some View {
         VStack {
             ZStack {
-                HStack {
+                HStack(spacing: 10) {
                     Button {
                         presentationMode.wrappedValue.dismiss()
                     } label: {
-                        Image(systemName: "arrow.left")
-                            .padding()
-                            .background(.white)
-                            .foregroundColor(.black)
+                        Image(systemName: "chevron.left")
+                            .fontWeight(.heavy)
+                            .padding(10)
+                            .background(ai_black)
+                            .foregroundColor(ai_white)
                             .clipShape(Circle())
                     }
+                    
+                    Text("Automation")
+                        .font(.system(size: 22, weight: .heavy, design: .rounded))
+                        .kerning(1)
+                        .textCase(.uppercase)
+                        .foregroundColor(ai_black)
+                    
                     Spacer()
                 }
                 .padding()
-                
-                Text("Automation")
-                    .font(.system(size: 16, weight: .bold))
             }
-            .foregroundColor(.white)
             
             ScrollView {
                 LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 10, content: {
@@ -41,32 +45,40 @@ struct UserPromptsView: View {
                             Image(systemName: item.icon)
                             
                             Text(item.title)
-                                .font(.title3)
+                                .font(.system(size: 12, weight: .bold))
+                                .multilineTextAlignment(.leading)
+                                .minimumScaleFactor(0.5)
+                                .textCase(.uppercase)
+                                .kerning(0.25)
                                 .lineLimit(2)
                             
                             Text(item.caption)
-                                .font(.caption2)
-                                .lineLimit(1)
+                                .font(.system(size: 10, weight: .medium))
+                                .multilineTextAlignment(.leading)
+                                .minimumScaleFactor(0.5)
+                                .lineLimit(2)
                             
                             Spacer()
                             
                             Button {
-                                
+                                //
                             } label: {
                                 Text("Generate")
-                                    .font(.caption)
+                                    .font(.system(size: 12, weight: .semibold))
+                                    .textCase(.uppercase)
+                                    .kerning(0.75)
                             }
                             .frame(maxWidth: .infinity)
                             .frame(height: 40)
-                            .background(Color("Dark"))
+                            .background(ai_white.opacity(0.15))
                             .clipShape(Capsule())
                             .foregroundColor(.white)
                         }
-                        .foregroundColor(.black)
+                        .foregroundColor(ai_white)
                         .frame(width: 140, height: 150)
                         .padding()
-                        .background(.white)
-                        .clipShape(RoundedRectangle(cornerRadius: 26))
+                        .background(ai_black)
+                        .clipShape(RoundedRectangle(cornerRadius: 20))
                         .padding(.horizontal)
                         
                     }
@@ -74,8 +86,23 @@ struct UserPromptsView: View {
                 .padding(.horizontal)
             }
         }
-        .background(Image("gradient").resizable().scaledToFill().blur(radius: 150))
-        .background(.black)
+        .background(background())
+    }
+    
+    // MARK: Background
+    @ViewBuilder
+    func background() -> some View {
+        GeometryReader { proxy in
+            let size = proxy.size
+            
+            Image("bg-img")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .offset(y: -50)
+                .frame(width: size.width, height: size.height + 50)
+                .clipped()
+        }
+        .edgesIgnoringSafeArea(.all)
     }
 }
 
