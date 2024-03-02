@@ -64,7 +64,7 @@ struct UserPromptsView: View {
                                 //
                             } label: {
                                 Text("Generate")
-                                    .font(.system(size: 12, weight: .semibold))
+                                    .font(.system(size: 12, weight: .bold))
                                     .textCase(.uppercase)
                                     .kerning(0.75)
                             }

@@ -20,16 +20,19 @@ struct RecentView: View {
         VStack {
             HStack {
                 Text("Recent Chats")
-                    .font(.title3)
-                    .bold()
+                    .font(.system(size: 16, weight: .heavy, design: .rounded))
+                    .kerning(1)
+                    .textCase(.uppercase)
+                    .foregroundColor(ai_black)
                 
                 Spacer()
                 
-                Image(systemName: "arrow.up.right")
+                Image(systemName: "chevron.right")
+                    .fontWeight(.heavy)
                     .padding(10)
-                    .background(.white)
+                    .background(ai_black)
+                    .foregroundColor(ai_white)
                     .clipShape(Circle())
-                    .foregroundColor(.black)
             }
             .padding()
             

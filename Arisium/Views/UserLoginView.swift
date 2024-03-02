@@ -49,8 +49,13 @@ struct UserLoginView: View {
                         if isUserSignedUp {
                             HStack {
                                 TextField("Username", text: $userName)
+                                    .font(.system(size: 12, weight: .medium, design: .rounded))
+                                    .textCase(.uppercase)
+                                    .kerning(0.5)
                                     .padding()
-                                    .foregroundColor(.white)
+                                    .background(ai_grey.opacity(0.15))
+                                    .cornerRadius(10)
+                                    .foregroundColor(ai_white)
                                     .autocorrectionDisabled()
                             }
                             
@@ -58,16 +63,26 @@ struct UserLoginView: View {
                         }
                         
                         TextField("Email", text: $email)
+                            .font(.system(size: 12, weight: .medium, design: .rounded))
+                            .textCase(.uppercase)
+                            .kerning(0.5)
                             .padding()
-                            .foregroundColor(.white)
+                            .background(ai_grey.opacity(0.15))
+                            .cornerRadius(10)
+                            .foregroundColor(ai_white)
                             .autocorrectionDisabled()
                         
                         Divider()
                         
                         HStack {
                             SecureField("Password", text: $password)
+                                .font(.system(size: 12, weight: .medium, design: .rounded))
+                                .textCase(.uppercase)
+                                .kerning(0.5)
                                 .padding()
-                                .foregroundColor(.white)
+                                .background(ai_grey.opacity(0.15))
+                                .cornerRadius(10)
+                                .foregroundColor(ai_white)
                                 .autocorrectionDisabled()
                             
                             if password.count > 0 {
@@ -133,32 +148,34 @@ struct UserLoginView: View {
                                                         }
                                                     }
                                                 }
-                                                
                                             }
                                         } label: {
                                             if isLoading {
                                                 ProgressView()
                                                     .padding()
-                                                    .tint(.black)
+                                                    .tint(ai_black)
                                             } else {
-                                                Image(systemName: "arrow.right")
-                                                    .padding()
+                                                Image(systemName: "chevron.right")
+                                                    .fontWeight(.heavy)
+                                                    .padding(10)
+                                                    .background(ai_black)
+                                                    .foregroundColor(ai_white)
+                                                    .clipShape(Circle())
                                             }
                                         }
-                                        .background(.white)
-                                        .foregroundColor(.black)
+                                        .background(ai_white)
+                                        .foregroundColor(ai_black)
                                         .clipShape(Circle())
-                                        
                                     }
                                     .padding(6)
                                 }
                             }
                         }
-                        
                     }
                     .padding()
                     .frame(maxWidth: .infinity)
-                    .overlay(RoundedRectangle(cornerRadius: 20).stroke(ai_black, lineWidth: 2))
+                    .background(ai_black)
+                    .clipShape(RoundedRectangle(cornerRadius: 15))
                     .opacity(isShow ? 1 : 0)
                     .padding()
                     
@@ -169,9 +186,10 @@ struct UserLoginView: View {
                                 Divider()
                             }
                             
-                            Text(" Continue with ")
-                                .opacity(0.5)
-                                .font(.caption)
+                            Text("or")
+                                .font(.system(size: 18, weight: .semibold, design: .monospaced))
+                                .kerning(1.0)
+                                .foregroundStyle(ai_black)
                             
                             VStack {
                                 Divider()
@@ -213,11 +231,13 @@ struct UserLoginView: View {
                                 }
                             } label: {
                                 Text("Google")
+                                    .font(.system(size: 18, weight: .semibold, design: .monospaced))
+                                    .kerning(1.0)
                                     .frame(maxWidth: .infinity)
                                     .frame(height: 50)
                             }
-                            .clipShape(Capsule())
-                            .overlay(Capsule().stroke(.white.opacity(0.3), lineWidth: 2))
+                            .background(ai_black)
+                            .clipShape(RoundedRectangle(cornerRadius: 15))
                             
                         }
                         .opacity(isShow ? 1 : 0)
@@ -231,7 +251,6 @@ struct UserLoginView: View {
                         .frame(maxHeight: .infinity)
                     
                     Button {
-                        
                         withAnimation(.easeIn(duration: 1)) {
                             scale = scale == 0.4 ? 1.0 : 1.0
                             isShort.toggle()
@@ -243,8 +262,6 @@ struct UserLoginView: View {
                                 scale = scale == 1.0 ? 0.4 : 0.4
                                 isShort.toggle()
                             }
-                            
-                            
                         }
                         
                         DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
@@ -257,12 +274,15 @@ struct UserLoginView: View {
                         
                     } label: {
                         Text(isUserSignedUp ? "Already have an account? Sign in" : "Create new Account? Sign up")
+                            .font(.system(size: 12, weight: .semibold, design: .monospaced))
+                            .textCase(.uppercase)
+                            .kerning(1.0)
                     }
-                    .foregroundColor(.white)
+                    .foregroundColor(ai_white)
                     .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(ai_black)
                 }
-                
-                
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .ignoresSafeArea()
@@ -278,10 +298,8 @@ struct UserLoginView: View {
                         isShow.toggle()
                     }
                 }
-                
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            
         }
     }
     

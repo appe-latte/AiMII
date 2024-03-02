@@ -30,19 +30,22 @@ struct Automation: View {
         VStack {
             HStack {
                 Text("Automation")
-                    .font(.title3)
-                    .bold()
+                    .font(.system(size: 16, weight: .heavy, design: .rounded))
+                    .kerning(1)
+                    .textCase(.uppercase)
+                    .foregroundColor(ai_black)
                 
                 Spacer()
                 
                 Button {
                     isClick.toggle()
                 } label: {
-                    Image(systemName: "arrow.up.right")
+                    Image(systemName: "chevron.right")
+                        .fontWeight(.heavy)
                         .padding(10)
-                        .background(.white)
+                        .background(ai_black)
+                        .foregroundColor(ai_white)
                         .clipShape(Circle())
-                        .foregroundColor(.black)
                 }
             }
             .padding()
