@@ -7,6 +7,8 @@
 
 import SwiftUI
 import CoreData
+import FirebaseAuth
+import FirebaseFirestore
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext

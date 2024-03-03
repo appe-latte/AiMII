@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:Arisium.xcodeproj">
+      location = "group:/Users/stannee/Documents/GitHub/ArisiumGPT/Arisium/AiMII.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">

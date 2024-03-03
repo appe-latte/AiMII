@@ -49,8 +49,7 @@ struct Trending: View {
                                 .kerning(0.25)
                                 .padding()
                                 .background(ai_black)
-                                .clipShape(Capsule())
-                                .overlay(Capsule().stroke(.white, lineWidth: 2))
+                                .clipShape(RoundedRectangle(cornerRadius: 10))
                         }
                     }
                 }

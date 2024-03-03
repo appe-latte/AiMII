@@ -78,12 +78,77 @@ struct PremiumAccountView: View {
     
     // MARK: Premium Features
     private var premiumFeatures: some View {
-        Text("1. Access to Chat GPT-4: The latest, most powerful AI.\n2. Ads-free experience\n3. High word limit for queries\n4. Unlimited questions & answers\n5. More accurate, detailed responses\n6. Advanced understanding of context and nuance.\n7. Priority support and updates")
-            .font(.system(size: 16, weight: .medium, design: .rounded))
-            .kerning(2)
-            .foregroundColor(ai_black)
-            .lineSpacing(10)
-            .padding()
+        VStack(alignment: .leading, spacing: 10) {
+            // Benefit 1
+            HStack(spacing: 5) {
+                Image(systemName: "checkmark.seal.fill")
+                    .padding(8)
+                    .background(ai_black)
+                    .foregroundColor(ai_white)
+                    .clipShape(Circle())
+                
+                Text("Access to Chat GPT-4: The latest, most powerful AI.")
+                    .font(.system(size: 12, weight: .medium, design: .rounded))
+                    .kerning(2)
+                    .foregroundColor(ai_black)
+            }
+            
+            // Benefit 2
+            HStack(spacing: 5) {
+                Image(systemName: "checkmark.seal.fill")
+                    .padding(8)
+                    .background(ai_black)
+                    .foregroundColor(ai_white)
+                    .clipShape(Circle())
+                
+                Text("Ad-free experience.")
+                    .font(.system(size: 12, weight: .medium, design: .rounded))
+                    .kerning(2)
+                    .foregroundColor(ai_black)
+            }
+            
+            // Benefit 3
+            HStack(spacing: 5) {
+                Image(systemName: "checkmark.seal.fill")
+                    .padding(8)
+                    .background(ai_black)
+                    .foregroundColor(ai_white)
+                    .clipShape(Circle())
+                
+                Text("Priority support and updates.")
+                    .font(.system(size: 12, weight: .medium, design: .rounded))
+                    .kerning(2)
+                    .foregroundColor(ai_black)
+            }
+            
+            // Benefit 4
+            HStack(spacing: 5) {
+                Image(systemName: "checkmark.seal.fill")
+                    .padding(8)
+                    .background(ai_black)
+                    .foregroundColor(ai_white)
+                    .clipShape(Circle())
+                
+                Text("More accurate, detailed responses.")
+                    .font(.system(size: 12, weight: .medium, design: .rounded))
+                    .kerning(2)
+                    .foregroundColor(ai_black)
+            }
+            
+            // Benefit 5
+            HStack(spacing: 5) {
+                Image(systemName: "checkmark.seal.fill")
+                    .padding(8)
+                    .background(ai_black)
+                    .foregroundColor(ai_white)
+                    .clipShape(Circle())
+                
+                Text("Advanced understanding of context and nuance.")
+                    .font(.system(size: 12, weight: .medium, design: .rounded))
+                    .kerning(2)
+                    .foregroundColor(ai_black)
+            }
+        }
     }
     
     private var purchaseOptions: some View {
@@ -111,7 +176,7 @@ struct PremiumAccountView: View {
                         }
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(ai_white)
+                        .background(ai_red)
                         .clipShape(Capsule())
                     }
                 }

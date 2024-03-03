@@ -25,8 +25,13 @@ struct UserChatView: View {
             VStack {
                 userHeader
                 ScrollView {
+                    // MARK: Recent Searches Section
                     recentSearches
-                    automationSection
+                    
+                    // MARK: Automation Section
+//                    automationSection
+                    
+                    // MARK: Trending Prompts Section
                     trendingSection
                 }
                 
@@ -34,8 +39,8 @@ struct UserChatView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(background())
             .foregroundColor(.white)
-            .navigationTitle("Chat") // Consider adding a navigation title for clarity
-            .navigationBarHidden(true) // Hides the default navigation bar as you've designed a custom one
+            .navigationTitle("Chat")
+            .navigationBarHidden(true)
         }
     }
     
@@ -73,7 +78,7 @@ struct UserChatView: View {
     }
     
     private var recentSearches: some View {
-        NavigationLink(destination: ChatView(isChatView: $isRecent)
+        NavigationLink(destination: ChatHistoryView(isChatView: $isRecent)
                         .environment(\.managedObjectContext, dataController.container.viewContext)) {
             RecentView(isClick: $isRecent)
         }
@@ -84,7 +89,7 @@ struct UserChatView: View {
     }
     
     private var trendingSection: some View {
-        Trending(quote: $quote, isClick: $trending) // Assuming Arisium.Trending was a mistake and it's just Trending
+        Trending(quote: $quote, isClick: $trending)
     }
     
     // MARK: Fetch the username from Firebase
