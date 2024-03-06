@@ -15,7 +15,7 @@ struct SettingsView: View {
     @Environment(\.openURL) var openURL
     
     @State var avatar = UserDefaults.standard.string(forKey: "PROFILE") ?? "avt1"
-    @State var first = UserDefaults.standard.string(forKey: "NAME") ?? "username"
+    @State var first = UserDefaults.standard.string(forKey: "NAME") ?? "AiMII user"
     
     @State var isDeleteDialog = false
     @Binding var isSignedOut: Bool
@@ -94,12 +94,12 @@ struct SettingsView: View {
                         })
                     }
                     
-                    VStack {
+                    VStack(spacing: 5) {
                         // MARK: User Account - button
                         Button {
                             isAvatar.toggle()
                         } label: {
-                            ItemCard(title: "My Account", icon: "person")
+                            ItemCard(title: "My Account", icon: "person", subtitle: "Edit your user profile.")
                         }
                         .foregroundColor(ai_white)
                         .buttonStyle(.plain)
@@ -110,11 +110,20 @@ struct SettingsView: View {
                             UserAccountView()
                         }
                         
-                        // MARK: Chat History - button
+                        // MARK: Send Feedback
                         Button {
-                            isChatHistory.toggle()
+                            openURL(URL(string: "mailto:hello@appe-latte.ca")!)
                         } label: {
-                            ItemCard(title: "Chat History", icon: "message.and.waveform")
+                            ItemCard(title: "Send Feedback", icon: "ellipsis.message", subtitle: "Send us your feedback.")
+                        }
+                        .foregroundColor(ai_white)
+                        .buttonStyle(.plain)
+                        
+                        // MARK: Privacy Policy
+                        Button {
+                            openURL(URL(string: "https://www.apple.com")!)
+                        } label: {
+                            ItemCard(title: "Privacy Policy", icon: "checkerboard.shield", subtitle: "Link to our privacy policy.")
                         }
                         .foregroundColor(ai_white)
                         .buttonStyle(.plain)
@@ -123,7 +132,7 @@ struct SettingsView: View {
                         Button {
                             openURL(URL(string: "mailto:hello@appe-latte.ca")!)
                         } label: {
-                            ItemCard(title: "Rate App", icon: "star")
+                            ItemCard(title: "Rate This App", icon: "star", subtitle: "Rate us in the app store.")
                         }
                         .foregroundColor(ai_white)
                         .buttonStyle(.plain)
@@ -132,7 +141,7 @@ struct SettingsView: View {
                         Button(action: {
                             isPresentingShareSheet = true
                         }) {
-                            ItemCard(title: "Share App", icon: "square.and.arrow.up")
+                            ItemCard(title: "Share App", icon: "square.and.arrow.up", subtitle: "Love our app? Share it with your friends.")
                         }
                         .sheet(isPresented: $isPresentingShareSheet) {
                             ActivityView(activityItems: ["Check out this link: https://example.com"])
@@ -140,32 +149,20 @@ struct SettingsView: View {
                         .foregroundColor(ai_white)
                         .buttonStyle(.plain)
                         
-                        // MARK: Send Feedback
+                        // MARK: Log Out
                         Button {
-                            openURL(URL(string: "mailto:hello@appe-latte.ca")!)
+                            //
                         } label: {
-                            ItemCard(title: "Send Feedback", icon: "ellipsis.message")
+                            ItemCard(title: "Log Out", icon: "door.left.hand.open", subtitle: "Log out of the app.")
                         }
                         .foregroundColor(ai_white)
                         .buttonStyle(.plain)
-                        
-                        
-                        // MARK: Privacy Policy
-                        Button {
-                            openURL(URL(string: "https://www.apple.com")!)
-                        } label: {
-                            ItemCard(title: "Privacy Policy", icon: "checkerboard.shield")
-                        }
-                        .foregroundColor(ai_white)
-                        .buttonStyle(.plain)
-                        
-                        
                         
                         // MARK: Delete Account
                         Button {
                             isDeleteDialog.toggle()
                         } label: {
-                            ItemCard(title: "Delete Account", icon: "trash")
+                            DeleteAccountCard(title: "Delete Account", icon: "trash", subtitle: "Permanently close and delete your account.")
                         }
                         .foregroundColor(ai_red)
                         .buttonStyle(.plain)
@@ -194,7 +191,6 @@ struct SettingsView: View {
                             )
                         }
                         
-                        
                         // MARK: Appé Latte credits
                         VStack(alignment: .center, spacing: 3) {
                             HStack {
@@ -203,7 +199,7 @@ struct SettingsView: View {
                                     .fontWeight(.medium)
                                     .kerning(2)
                                     .textCase(.uppercase)
-                                    .foregroundColor(ai_white)
+                                    .foregroundColor(ai_black)
                                 
                                 Text("\(Image(systemName: "heart.fill"))")
                                     .font(.system(size: 8))
@@ -217,7 +213,7 @@ struct SettingsView: View {
                                     .fontWeight(.medium)
                                     .kerning(2)
                                     .textCase(.uppercase)
-                                    .foregroundColor(ai_white)
+                                    .foregroundColor(ai_black)
                             }
                             .padding(.top, 10)
                             
@@ -228,7 +224,7 @@ struct SettingsView: View {
                                     .fontWeight(.medium)
                                     .kerning(2)
                                     .textCase(.uppercase)
-                                    .foregroundColor(ai_white)
+                                    .foregroundColor(ai_black)
                                 
                                 if let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
                                     Text("\(UIApplication.appVersion!) (\(buildNumber))")
@@ -236,7 +232,7 @@ struct SettingsView: View {
                                         .fontWeight(.bold)
                                         .kerning(2)
                                         .textCase(.uppercase)
-                                        .foregroundColor(ai_white)
+                                        .foregroundColor(ai_black)
                                 }
                             }
                             .padding(.horizontal, 20)
@@ -252,7 +248,7 @@ struct SettingsView: View {
                                         .resizable()
                                         .scaledToFill()
                                         .frame(width: 20, height: 20)
-                                        .foregroundColor(ai_white)
+                                        .foregroundColor(ai_black)
                                 })
                                 
                                 // MARK: Facebook
@@ -263,7 +259,7 @@ struct SettingsView: View {
                                         .resizable()
                                         .scaledToFill()
                                         .frame(width: 20, height: 20)
-                                        .foregroundColor(ai_white)
+                                        .foregroundColor(ai_black)
                                 })
                                 
                                 // MARK: Twitter
@@ -274,13 +270,13 @@ struct SettingsView: View {
                                         .resizable()
                                         .scaledToFill()
                                         .frame(width: 20, height: 20)
-                                        .foregroundColor(ai_white)
+                                        .foregroundColor(ai_black)
                                 })
                             }
                             .padding(10)
                         }
                     }
-                    .background(ai_black)
+                    .background(ai_white.opacity(0.5))
                     .clipShape(RoundedRectangle(cornerRadius: 15))
                     .padding(10)
                 }
@@ -311,35 +307,87 @@ struct SettingsView: View {
 struct ItemCard: View {
     var title: String
     var icon: String
+    var subtitle: String
     
     var body: some View {
-        VStack {
+        VStack(spacing: 5) {
             HStack(spacing: 15) {
                 Image(systemName: icon)
-                    .fontWeight(.heavy)
+                    .fontWeight(.bold)
                     .padding(10)
-                    .background(ai_white.opacity(0.15))
+                    .background(ai_black)
                     .foregroundColor(ai_white)
                     .clipShape(Circle())
                 
-                Text(title)
-                    .font(.system(size: 18, weight: .medium, design: .monospaced))
-                    .kerning(1.5)
-                    .textCase(.uppercase)
+                VStack(alignment: .leading, spacing: 5) {
+                    Text(title)
+                        .font(.system(size: 15, weight: .semibold, design: .monospaced))
+                        .kerning(1.5)
+                        .foregroundColor(ai_black)
+                    
+                    Text(subtitle)
+                        .font(.system(size: 10, weight: .medium, design: .monospaced))
+                        .kerning(0.75)
+                        .foregroundColor(ai_black)
+                }
                 
                 Spacer()
                 
                 Image(systemName: "chevron.right")
                     .fontWeight(.heavy)
                     .padding(10)
-                    .background(ai_white)
-                    .foregroundColor(ai_black)
+                    .background(ai_black)
+                    .foregroundColor(ai_white)
                     .clipShape(Circle())
             }
-            .padding()
+            .padding(10)
             
             Divider()
-                .background(ai_white.opacity(0.5))
+                .background(ai_black.opacity(0.5))
+        }
+    }
+}
+
+struct DeleteAccountCard: View {
+    var title: String
+    var icon: String
+    var subtitle: String
+    
+    var body: some View {
+        VStack(spacing: 5) {
+            HStack(spacing: 15) {
+                Image(systemName: icon)
+                    .fontWeight(.bold)
+                    .padding(10)
+                    .background(ai_red)
+                    .foregroundColor(ai_white)
+                    .clipShape(Circle())
+                
+                VStack(alignment: .leading, spacing: 5) {
+                    Text(title)
+                        .font(.system(size: 15, weight: .semibold, design: .monospaced))
+                        .kerning(1.5)
+                        .foregroundColor(ai_red)
+                    
+                    Text(subtitle)
+                        .font(.system(size: 10, weight: .medium, design: .monospaced))
+                        .kerning(0.75)
+                        .foregroundColor(ai_black)
+                }
+                
+                Spacer()
+                
+                Image(systemName: "chevron.right")
+                    .fontWeight(.heavy)
+                    .padding(10)
+                    .background(ai_black)
+                    .foregroundColor(ai_white)
+                    .clipShape(Circle())
+            }
+            .padding(10)
+            
+            Divider()
+                .background(ai_black.opacity(0.5))
         }
     }
 }

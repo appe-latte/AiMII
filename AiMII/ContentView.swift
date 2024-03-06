@@ -7,11 +7,9 @@
 import SwiftUI
 
 struct ContentView: View {
-    
     @State var selectedIndex = 0
-    
     @State var isChatView = false
-    @State var isAutomation = false
+    //    @State var isAutomation = false
     @State var quote = ""
     @State var isTrending = false
     @State var isSignedOut = false
@@ -22,22 +20,20 @@ struct ContentView: View {
         } else {
             if isChatView {
                 NewChat(quote: quote, isClick: $isChatView)
-            } else if isAutomation {
-                NewChat(quote: quote, isClick: $isAutomation)
-            } else if isTrending {
-                NewChat(quote: quote, isClick: $isAutomation)
             } else {
                 ZStack {
                     ZStack {
                         switch (selectedIndex) {
                         case 0:
-                            UserChatView(quote: $quote, isAutomation: $isAutomation, trending: $isTrending)
+                            UserChatView(quote: $quote)
                         case 1:
                             ChatHistoryView(isChatView: .constant(true))
                         case 2:
+                            TrendingView(quote: $quote, isClick: $isTrending)
+                        case 3:
                             SettingsView(isSignedOut: $isSignedOut)
                         default:
-                            UserChatView(quote: $quote, isAutomation: $isAutomation, trending: $isTrending)
+                            UserChatView(quote: $quote)
                         }
                     }
                     .frame(maxHeight: .infinity)
@@ -46,81 +42,95 @@ struct ContentView: View {
                         Spacer()
                         
                         ZStack {
-                            HStack {
+                            HStack(alignment: .center, spacing: 20) {
                                 Spacer()
                                 
                                 // MARK: Home Screen
                                 Button {
                                     selectedIndex = 0
                                 } label: {
-                                    VStack {
+                                    VStack(spacing: 5) {
                                         Image(systemName: "house")
+                                            .font(.subheadline)
                                         
                                         Text("Home")
-                                            .font(.caption)
+                                            .font(.system(size: 12, weight: .medium, design: .monospaced))
+                                            .kerning(0.75)
                                     }
                                 }
-                                
-//                                Spacer()
-//                                
-//                                // MARK: "New Chat"
-//                                Button {
-//                                    isChatView.toggle()
-//                                } label: {
-//                                    Image(systemName: "plus")
-//                                        .padding()
-//                                        .background(.white)
-//                                        .clipShape(Circle())
-//                                        .foregroundColor(.black)
-//                                }
-                                
-                                Spacer()
                                 
                                 // MARK: Chat History
                                 Button {
                                     selectedIndex = 1
                                 } label: {
-                                    VStack {
+                                    VStack(spacing: 5) {
                                         Image(systemName: "book.pages")
+                                            .font(.subheadline)
                                         
                                         Text("History")
-                                            .font(.caption)
+                                            .font(.system(size: 12, weight: .medium, design: .monospaced))
+                                            .kerning(0.75)
                                     }
                                 }
                                 
-                                Spacer()
-                                
-                                // MARK: Settings
+                                // MARK: Trending Prompts
                                 Button {
                                     selectedIndex = 2
                                 } label: {
-                                    VStack {
-                                        Image(systemName: "gear")
+                                    VStack(spacing: 5) {
+                                        Image(systemName: "chart.line.uptrend.xyaxis")
+                                            .font(.subheadline)
                                         
-                                        Text("Settings")
-                                            .font(.caption)
+                                        Text("Trending")
+                                            .font(.system(size: 12, weight: .medium, design: .monospaced))
+                                            .kerning(0.75)
                                     }
                                 }
+                                
+                                // MARK: Settings
+                                Button {
+                                    selectedIndex = 3
+                                } label: {
+                                    VStack(spacing: 5) {
+                                        Image(systemName: "gear")
+                                            .font(.subheadline)
+                                        
+                                        Text("Settings")
+                                            .font(.system(size: 12, weight: .medium, design: .monospaced))
+                                            .kerning(0.75)
+                                    }
+                                }
+                                
+                                // MARK: Profile Avatar
+                                profileImage
                                 
                                 Spacer()
                                 
                             }
-                            .padding([.top, .bottom])
-                            .imageScale(.large)
-                            .foregroundColor(.white)
+                            .padding(10)
+                            .imageScale(.medium)
+                            .foregroundColor(ai_white)
                             .background(ai_black)
-                            .clipShape(RoundedRectangle(cornerRadius: 15))
-                            .padding()
-                            .padding(.horizontal)
                         }
-                        .frame(height: 150)
+                        .frame(maxWidth: .infinity, maxHeight: 150, alignment: .bottomLeading)
                     }
-                    .ignoresSafeArea()
+                    //                    .ignoresSafeArea()
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(background())
             }
         }
+    }
+    
+    private var profileImage: some View {
+        Image(UserDefaults.standard.string(forKey: "PROFILE") ?? "avt1")
+            .resizable()
+            .scaledToFit()
+            .frame(width: 30, height: 30)
+            .clipShape(Circle())
+            .padding(3)
+            .background(ai_grey)
+            .clipShape(Circle())
     }
     
     // MARK: Background

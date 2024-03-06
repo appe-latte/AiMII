@@ -10,13 +10,11 @@ import Firebase
 import FirebaseFirestore
 
 struct UserChatView: View {
-    @Binding var quote: String
-    @Binding var isAutomation: Bool
-    @Binding var trending: Bool
-    
-    @State private var isRecent = false
-    @State private var userName = "AiMII User"  // Default username
+    @State private var userName = "AiMII user"  // Default username
     @State private var avatar = UserDefaults.standard.string(forKey: "PROFILE") ?? "avt1"
+    @State var isChatView = false
+    @State private var isRecent = false
+    @Binding var quote: String
     
     @StateObject private var dataController = LocalData()
     
@@ -25,26 +23,16 @@ struct UserChatView: View {
             VStack {
                 userHeader
                 
-                ScrollView {
-                    // MARK: Recent Searches Section
-                    recentSearches
-                    
-                    // MARK: Automation Section
-                    //                    automationSection
-                    
-                    // MARK: Trending Prompts Section
-                    trendingSection
-                }
-                
+                Spacer()
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(background())
             .foregroundColor(ai_white)
-            .navigationTitle("Chat")
             .navigationBarHidden(true)
         }
     }
     
+    // MARK: Header Section
     private var userHeader: some View {
         HStack {
             VStack(alignment: .leading, spacing: 5) {
@@ -54,27 +42,26 @@ struct UserChatView: View {
                     .foregroundColor(ai_black)
                 
                 Text(userName)
-                    .font(.system(size: 18, weight: .heavy, design: .monospaced))
+                    .font(.system(size: 18, weight: .bold, design: .monospaced))
                     .kerning(1)
                     .foregroundColor(ai_black)
             }
             
             Spacer()
             
-            profileImage
+            // MARK: "New Chat"
+            Button {
+                isChatView.toggle()
+            } label: {
+                Image(systemName: "plus")
+                    .fontWeight(.heavy)
+                    .padding()
+                    .background(ai_black)
+                    .clipShape(Circle())
+                    .foregroundColor(ai_white)
+            }
         }
         .padding()
-    }
-    
-    private var profileImage: some View {
-        Image(UserDefaults.standard.string(forKey: "PROFILE") ?? "avt1")
-            .resizable()
-            .scaledToFit()
-            .frame(width: 60, height: 60)
-            .clipShape(Circle())
-            .padding(6)
-            .background(ai_black)
-            .clipShape(Circle())
     }
     
     private var recentSearches: some View {
@@ -82,14 +69,6 @@ struct UserChatView: View {
             .environment(\.managedObjectContext, dataController.container.viewContext)) {
                 RecentView(isClick: $isRecent)
             }
-    }
-    
-    private var automationSection: some View {
-        Automation(isClick: $isAutomation, quote: $quote)
-    }
-    
-    private var trendingSection: some View {
-        Trending(quote: $quote, isClick: $trending)
     }
     
     // MARK: Fetch the username from Firebase
@@ -128,5 +107,5 @@ struct UserChatView: View {
 }
 
 #Preview {
-    UserChatView(quote: .constant(""), isAutomation: .constant(false), trending: .constant(false))
+    UserChatView(quote: .constant(""))
 }

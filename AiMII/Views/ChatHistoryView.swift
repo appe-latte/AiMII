@@ -27,9 +27,7 @@ struct ChatHistoryView: View {
     // MARK: - Components
     private var headerView: some View {
         HStack {
-            backButton
-            
-            Text("Chat History")
+            Text("History")
                 .font(.system(size: 23, weight: .bold, design: .monospaced))
                 .foregroundStyle(ai_white)
                 .kerning(1.25)
@@ -38,20 +36,6 @@ struct ChatHistoryView: View {
         }
         .padding()
         .background(ai_black)
-    }
-    
-    private var backButton: some View {
-        Button(action: {
-            isChatView.toggle()
-            presentationMode.wrappedValue.dismiss()
-        }) {
-            Image(systemName: "chevron.left")
-                .fontWeight(.heavy)
-                .padding(10)
-                .background(ai_white)
-                .foregroundColor(ai_black)
-                .clipShape(Circle())
-        }
     }
     
     private var messagesScrollView: some View {

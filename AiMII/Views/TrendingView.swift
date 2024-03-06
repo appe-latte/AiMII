@@ -1,5 +1,5 @@
 //
-//  Trending.swift
+//  TrendingView.swift
 //  Arisium
 //
 //  Created by Stanford L. Khumalo on 2024-02-29.
@@ -14,23 +14,13 @@ var trendingList: [RecentModel] = [
     RecentModel(text: "India's Capital"),
 ]
 
-struct Trending: View {
-    
+struct TrendingView: View {
     @Binding var quote: String
     @Binding var isClick: Bool
     
     var body: some View {
         VStack {
-            HStack {
-                Text("Trending Prompts")
-                    .font(.system(size: 16, weight: .bold, design: .monospaced))
-                    .kerning(1)
-                    .textCase(.uppercase)
-                    .foregroundColor(ai_black)
-                
-                Spacer()
-            }
-            .padding()
+            headerView
             
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHGrid(rows: [GridItem(.flexible())]) {
@@ -50,11 +40,27 @@ struct Trending: View {
                                 .padding()
                                 .background(ai_black)
                                 .clipShape(RoundedRectangle(cornerRadius: 10))
+                                .foregroundColor(ai_white)
                         }
                     }
                 }
                 .padding(.horizontal)
             }
+            
+            Spacer()
         }
+    }
+    
+    private var headerView: some View {
+        HStack {
+            Text("Trending")
+                .font(.system(size: 23, weight: .bold, design: .monospaced))
+                .foregroundStyle(ai_white)
+                .kerning(1.25)
+            
+            Spacer()
+        }
+        .padding()
+        .background(ai_black)
     }
 }
