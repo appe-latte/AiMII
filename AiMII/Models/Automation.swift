@@ -64,10 +64,12 @@ struct Automation: View {
                                 
                                 Text(item.title)
                                     .font(.title3)
+                                    .fontDesign(.monospaced)
                                     .lineLimit(2)
                                 
                                 Text(item.caption)
                                     .font(.caption2)
+                                    .fontDesign(.monospaced)
                                     .lineLimit(1)
                                 
                                 Spacer()
@@ -77,7 +79,7 @@ struct Automation: View {
                                     isClick.toggle()
                                 } label: {
                                     Text("Generate")
-                                        .font(.caption)
+                                        .font(.system(size: 12, weight: .medium, design: .monospaced))
                                 }
                                 .frame(maxWidth: .infinity)
                                 .frame(height: 40)

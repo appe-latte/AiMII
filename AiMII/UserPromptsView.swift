@@ -26,9 +26,8 @@ struct UserPromptsView: View {
                     }
                     
                     Text("Automation")
-                        .font(.system(size: 22, weight: .heavy, design: .rounded))
+                        .font(.system(size: 23, weight: .bold, design: .monospaced))
                         .kerning(1)
-                        .textCase(.uppercase)
                         .foregroundColor(ai_black)
                     
                     Spacer()
@@ -38,25 +37,28 @@ struct UserPromptsView: View {
             
             ScrollView {
                 LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 10, content: {
-                    ForEach(automationList, id: \.id) {
-                        item in
-                        
+                    ForEach(automationList, id: \.id) { item in
                         VStack(alignment: .leading, spacing: 5) {
-                            Image(systemName: item.icon)
-                            
-                            Text(item.title)
-                                .font(.system(size: 12, weight: .bold))
-                                .multilineTextAlignment(.leading)
-                                .minimumScaleFactor(0.5)
-                                .textCase(.uppercase)
-                                .kerning(0.25)
-                                .lineLimit(2)
+                            HStack {
+                                Image(systemName: item.icon)
+                                    .font(.caption)
+                                
+                                Text(item.title)
+                                    .font(.system(size: 10, weight: .heavy))
+                                    .fontDesign(.monospaced)
+                                    .multilineTextAlignment(.leading)
+                                    .minimumScaleFactor(0.5)
+                                    .textCase(.uppercase)
+                                    .kerning(0.25)
+                                    .lineLimit(2)
+                            }
                             
                             Text(item.caption)
                                 .font(.system(size: 10, weight: .medium))
+                                .fontDesign(.monospaced)
                                 .multilineTextAlignment(.leading)
                                 .minimumScaleFactor(0.5)
-                                .lineLimit(2)
+                                .lineLimit(4)
                             
                             Spacer()
                             
@@ -64,7 +66,7 @@ struct UserPromptsView: View {
                                 //
                             } label: {
                                 Text("Generate")
-                                    .font(.system(size: 12, weight: .bold))
+                                    .font(.system(size: 12, weight: .bold, design: .monospaced))
                                     .textCase(.uppercase)
                                     .kerning(0.75)
                             }

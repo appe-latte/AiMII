@@ -43,7 +43,7 @@ struct LandingView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(background())
-            .foregroundColor(.white)
+            .foregroundColor(ai_white)
         }
     }
     

@@ -4,92 +4,141 @@
 //
 //  Created by Stanford L. Khumalo on 2024-02-28.
 //
-
 import SwiftUI
-import CoreData
-import FirebaseAuth
-import FirebaseFirestore
 
 struct ContentView: View {
-    @Environment(\.managedObjectContext) private var viewContext
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
-        animation: .default
-    ) private var items: FetchedResults<Item>
+    
+    @State var selectedIndex = 0
+    
+    @State var isChatView = false
+    @State var isAutomation = false
+    @State var quote = ""
+    @State var isTrending = false
+    @State var isSignedOut = false
     
     var body: some View {
-        NavigationView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        // Safely unwrapping `item.timestamp`
-                        if let timestamp = item.timestamp {
-                            Text("Item at \(timestamp, formatter: itemFormatter)")
-                        } else {
-                            Text("Item has no timestamp")
-                        }
-                    } label: {
-                        // Safely unwrapping `item.timestamp`
-                        if let timestamp = item.timestamp {
-                            Text(timestamp, formatter: itemFormatter)
-                        } else {
-                            Text("No Timestamp")
+        if isSignedOut {
+            LandingView()
+        } else {
+            if isChatView {
+                NewChat(quote: quote, isClick: $isChatView)
+            } else if isAutomation {
+                NewChat(quote: quote, isClick: $isAutomation)
+            } else if isTrending {
+                NewChat(quote: quote, isClick: $isAutomation)
+            } else {
+                ZStack {
+                    ZStack {
+                        switch (selectedIndex) {
+                        case 0:
+                            UserChatView(quote: $quote, isAutomation: $isAutomation, trending: $isTrending)
+                        case 1:
+                            ChatHistoryView(isChatView: .constant(true))
+                        case 2:
+                            SettingsView(isSignedOut: $isSignedOut)
+                        default:
+                            UserChatView(quote: $quote, isAutomation: $isAutomation, trending: $isTrending)
                         }
                     }
-                }
-                .onDelete(perform: deleteItems)
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-                
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
+                    .frame(maxHeight: .infinity)
+                    
+                    VStack {
+                        Spacer()
+                        
+                        ZStack {
+                            HStack {
+                                Spacer()
+                                
+                                // MARK: Home Screen
+                                Button {
+                                    selectedIndex = 0
+                                } label: {
+                                    VStack {
+                                        Image(systemName: "house")
+                                        
+                                        Text("Home")
+                                            .font(.caption)
+                                    }
+                                }
+                                
+//                                Spacer()
+//                                
+//                                // MARK: "New Chat"
+//                                Button {
+//                                    isChatView.toggle()
+//                                } label: {
+//                                    Image(systemName: "plus")
+//                                        .padding()
+//                                        .background(.white)
+//                                        .clipShape(Circle())
+//                                        .foregroundColor(.black)
+//                                }
+                                
+                                Spacer()
+                                
+                                // MARK: Chat History
+                                Button {
+                                    selectedIndex = 1
+                                } label: {
+                                    VStack {
+                                        Image(systemName: "book.pages")
+                                        
+                                        Text("History")
+                                            .font(.caption)
+                                    }
+                                }
+                                
+                                Spacer()
+                                
+                                // MARK: Settings
+                                Button {
+                                    selectedIndex = 2
+                                } label: {
+                                    VStack {
+                                        Image(systemName: "gear")
+                                        
+                                        Text("Settings")
+                                            .font(.caption)
+                                    }
+                                }
+                                
+                                Spacer()
+                                
+                            }
+                            .padding([.top, .bottom])
+                            .imageScale(.large)
+                            .foregroundColor(.white)
+                            .background(ai_black)
+                            .clipShape(RoundedRectangle(cornerRadius: 15))
+                            .padding()
+                            .padding(.horizontal)
+                        }
+                        .frame(height: 150)
                     }
+                    .ignoresSafeArea()
                 }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(background())
             }
-            .navigationTitle("Items List")
         }
     }
     
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(context: viewContext)
-            newItem.timestamp = Date()
+    // MARK: Background
+    @ViewBuilder
+    func background() -> some View {
+        GeometryReader { proxy in
+            let size = proxy.size
             
-            do {
-                try viewContext.save()
-            } catch {
-                // Better error handling instead of fatalError
-                let nsError = error as NSError
-                print("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
+            Image("bg-img")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .offset(y: -50)
+                .frame(width: size.width, height: size.height + 50)
+                .clipped()
         }
-    }
-    
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            offsets.map { items[$0] }.forEach(viewContext.delete)
-            
-            do {
-                try viewContext.save()
-            } catch {
-                // Better error handling instead of fatalError
-                let nsError = error as NSError
-                print("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
+        .edgesIgnoringSafeArea(.all)
     }
 }
-
-private let itemFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .short
-    formatter.timeStyle = .medium
-    return formatter
-}()
 
 #Preview {
     ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)

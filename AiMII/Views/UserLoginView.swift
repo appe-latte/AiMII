@@ -39,7 +39,7 @@ struct UserLoginView: View {
                 
                 if isShort {
                     Text(isUserSignedUp ? "Create new account" : "Let’s get Started")
-                        .font(.system(size: 32, weight: .heavy, design: .rounded))
+                        .font(.system(size: 32, weight: .heavy, design: .monospaced))
                         .textCase(.uppercase)
                         .multilineTextAlignment(.center)
                         .foregroundColor(ai_black)
@@ -49,7 +49,7 @@ struct UserLoginView: View {
                         if isUserSignedUp {
                             HStack {
                                 TextField("Username", text: $userName)
-                                    .font(.system(size: 12, weight: .medium, design: .rounded))
+                                    .font(.system(size: 12, weight: .medium, design: .monospaced))
                                     .textCase(.uppercase)
                                     .kerning(0.5)
                                     .padding()
@@ -63,7 +63,7 @@ struct UserLoginView: View {
                         }
                         
                         TextField("Email", text: $email)
-                            .font(.system(size: 12, weight: .medium, design: .rounded))
+                            .font(.system(size: 12, weight: .medium, design: .monospaced))
                             .textCase(.uppercase)
                             .kerning(0.5)
                             .padding()
@@ -76,7 +76,7 @@ struct UserLoginView: View {
                         
                         HStack {
                             SecureField("Password", text: $password)
-                                .font(.system(size: 12, weight: .medium, design: .rounded))
+                                .font(.system(size: 12, weight: .medium, design: .monospaced))
                                 .textCase(.uppercase)
                                 .kerning(0.5)
                                 .padding()

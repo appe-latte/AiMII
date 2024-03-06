@@ -31,9 +31,9 @@ struct PersistenceController {
 
     init(inMemory: Bool = false) {
         container = NSPersistentContainer(name: "YourCoreDataModelName") // Make sure to use your actual Core Data model name
-        if inMemory {
-            container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
-        }
+//        if inMemory {
+//            container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
+//        }
         container.loadPersistentStores { (storeDescription, error) in
             if let error = error as NSError? {
                 // It's better to handle the error in a more user-friendly way in a production app

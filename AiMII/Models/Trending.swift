@@ -23,7 +23,7 @@ struct Trending: View {
         VStack {
             HStack {
                 Text("Trending Prompts")
-                    .font(.system(size: 16, weight: .heavy, design: .rounded))
+                    .font(.system(size: 16, weight: .bold, design: .monospaced))
                     .kerning(1)
                     .textCase(.uppercase)
                     .foregroundColor(ai_black)
@@ -42,7 +42,7 @@ struct Trending: View {
                             isClick.toggle()
                         } label: {
                             Text("#\(item.text)")
-                                .font(.system(size: 12, weight: .bold))
+                                .font(.system(size: 12, weight: .semibold, design: .monospaced))
                                 .multilineTextAlignment(.leading)
                                 .minimumScaleFactor(0.5)
                                 .textCase(.uppercase)

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2F1602072B945D2C00E0729A /* AiMII.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2F1602052B945D2B00E0729A /* AiMII.xcdatamodeld */; };
+		2F16020A2B94608600E0729A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F1602092B94608600E0729A /* AppDelegate.swift */; };
+		2F16020E2B946D9000E0729A /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F16020D2B946D9000E0729A /* SettingsView.swift */; };
 		2F5E37232B91256300BD598B /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 2F5E37222B91256300BD598B /* GoogleSignIn */; };
 		2F5E37252B91256300BD598B /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2F5E37242B91256300BD598B /* GoogleSignInSwift */; };
 		2F5E37282B91258400BD598B /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 2F5E37272B91258400BD598B /* GoogleMobileAds */; };
@@ -53,12 +56,14 @@
 		2FB849342B903F7700B0D4ED /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB849332B903F7700B0D4ED /* ContentView.swift */; };
 		2FB849362B903F7800B0D4ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2FB849352B903F7800B0D4ED /* Assets.xcassets */; };
 		2FB849392B903F7800B0D4ED /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2FB849382B903F7800B0D4ED /* Preview Assets.xcassets */; };
-		2FB8493B2B903F7800B0D4ED /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB8493A2B903F7800B0D4ED /* Persistence.swift */; };
-		2FB8493E2B903F7800B0D4ED /* AiMII.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2FB8493C2B903F7800B0D4ED /* AiMII.xcdatamodeld */; };
+		2FB8493B2B903F7800B0D4ED /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB8493A2B903F7800B0D4ED /* PersistenceController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2845709E0020293BAB2B315B /* Pods-Arisium.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Arisium.release.xcconfig"; path = "Target Support Files/Pods-Arisium/Pods-Arisium.release.xcconfig"; sourceTree = "<group>"; };
+		2F1602062B945D2B00E0729A /* AiMII.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AiMII.xcdatamodel; sourceTree = "<group>"; };
+		2F1602092B94608600E0729A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		2F16020D2B946D9000E0729A /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		2F5E373A2B91270B00BD598B /* Services.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
 		2F5E373C2B91275000BD598B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		2F5E37422B91286400BD598B /* Arisium.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Arisium.storekit; sourceTree = "<group>"; };
@@ -91,9 +96,7 @@
 		2FB849332B903F7700B0D4ED /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		2FB849352B903F7800B0D4ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2FB849382B903F7800B0D4ED /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		2FB8493A2B903F7800B0D4ED /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
-		2FB8493D2B903F7800B0D4ED /* AiMII.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AiMII.xcdatamodel; sourceTree = "<group>"; };
-		9798789B919A24FD60FFC650 /* Pods_Arisium.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Arisium.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2FB8493A2B903F7800B0D4ED /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
 		FF95208576BC2B3572F21BF6 /* Pods-Arisium.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Arisium.debug.xcconfig"; path = "Target Support Files/Pods-Arisium/Pods-Arisium.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -124,6 +127,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2F1602082B94606E00E0729A /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				2F1602092B94608600E0729A /* AppDelegate.swift */,
+			);
+			path = Delegates;
+			sourceTree = "<group>";
+		};
 		2F5E37392B9126F900BD598B /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -165,6 +176,7 @@
 				2F5E376B2B912D9C00BD598B /* UserLoginView.swift */,
 				2F5E37832B91342400BD598B /* UserChatView.swift */,
 				2F5E37852B9134C100BD598B /* ChatHistoryView.swift */,
+				2F16020D2B946D9000E0729A /* SettingsView.swift */,
 				2F5E37802B91336400BD598B /* Account */,
 			);
 			path = Views;
@@ -221,6 +233,7 @@
 			children = (
 				2F5E37912B924E3F00BD598B /* Info.plist */,
 				2F5E37962B94498A00BD598B /* GoogleService-Info.plist */,
+				2F1602082B94606E00E0729A /* Delegates */,
 				2F5E37392B9126F900BD598B /* Utils */,
 				2F5E37402B91280900BD598B /* Models */,
 				2F5E37792B9131DD00BD598B /* ViewModels */,
@@ -231,8 +244,8 @@
 				2F5E37892B9135F800BD598B /* UserPromptsView.swift */,
 				2FB849352B903F7800B0D4ED /* Assets.xcassets */,
 				2F5E378B2B91370C00BD598B /* logo.mp4 */,
-				2FB8493A2B903F7800B0D4ED /* Persistence.swift */,
-				2FB8493C2B903F7800B0D4ED /* AiMII.xcdatamodeld */,
+				2F1602052B945D2B00E0729A /* AiMII.xcdatamodeld */,
+				2FB8493A2B903F7800B0D4ED /* PersistenceController.swift */,
 				2FB849372B903F7800B0D4ED /* Preview Content */,
 			);
 			path = AiMII;
@@ -249,7 +262,6 @@
 		3FB707EC9EFDD0C68856023B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				9798789B919A24FD60FFC650 /* Pods_Arisium.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -389,14 +401,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				2F5E37822B91337300BD598B /* UserAccountView.swift in Sources */,
+				2F1602072B945D2C00E0729A /* AiMII.xcdatamodeld in Sources */,
 				2F5E37452B9129ED00BD598B /* StoreKitManager.swift in Sources */,
 				2F5E373B2B91270B00BD598B /* Services.swift in Sources */,
 				2F5E374F2B912B2D00BD598B /* Trending.swift in Sources */,
 				2F5E37862B9134C100BD598B /* ChatHistoryView.swift in Sources */,
 				2F5E37842B91342400BD598B /* UserChatView.swift in Sources */,
 				2F5E378E2B91386B00BD598B /* Colors.swift in Sources */,
+				2F16020A2B94608600E0729A /* AppDelegate.swift in Sources */,
 				2F5E37882B91350800BD598B /* LogoView.swift in Sources */,
-				2FB8493B2B903F7800B0D4ED /* Persistence.swift in Sources */,
+				2FB8493B2B903F7800B0D4ED /* PersistenceController.swift in Sources */,
 				2F5E37762B9130B700BD598B /* LocalData.xcdatamodeld in Sources */,
 				2F5E376C2B912D9C00BD598B /* UserLoginView.swift in Sources */,
 				2F5E377B2B9131F000BD598B /* ChatViewModel.swift in Sources */,
@@ -406,8 +420,8 @@
 				2F5E374B2B912AAD00BD598B /* RecentModel.swift in Sources */,
 				2F5E377F2B91329C00BD598B /* PremiumAccountView.swift in Sources */,
 				2F5E37722B912ECC00BD598B /* AvatarView.swift in Sources */,
-				2FB8493E2B903F7800B0D4ED /* AiMII.xcdatamodeld in Sources */,
 				2FB849322B903F7700B0D4ED /* AiMIIApp.swift in Sources */,
+				2F16020E2B946D9000E0729A /* SettingsView.swift in Sources */,
 				2F5E374D2B912AFA00BD598B /* Automation.swift in Sources */,
 				2F5E37782B91311800BD598B /* Database.swift in Sources */,
 				2F5E377D2B91323500BD598B /* NewChat.swift in Sources */,
@@ -551,7 +565,7 @@
 				DEVELOPMENT_TEAM = QACLP69RHJ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Arisium/Info.plist;
+				INFOPLIST_FILE = AiMII/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = AiMII;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -591,7 +605,7 @@
 				DEVELOPMENT_TEAM = QACLP69RHJ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Arisium/Info.plist;
+				INFOPLIST_FILE = AiMII/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = AiMII;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -760,6 +774,16 @@
 /* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
+		2F1602052B945D2B00E0729A /* AiMII.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				2F1602062B945D2B00E0729A /* AiMII.xcdatamodel */,
+			);
+			currentVersion = 2F1602062B945D2B00E0729A /* AiMII.xcdatamodel */;
+			path = AiMII.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
 		2F5E37742B9130B700BD598B /* LocalData.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
@@ -767,16 +791,6 @@
 			);
 			currentVersion = 2F5E37752B9130B700BD598B /* LocalData.xcdatamodel */;
 			path = LocalData.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-		2FB8493C2B903F7800B0D4ED /* AiMII.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				2FB8493D2B903F7800B0D4ED /* AiMII.xcdatamodel */,
-			);
-			currentVersion = 2FB8493D2B903F7800B0D4ED /* AiMII.xcdatamodel */;
-			path = AiMII.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

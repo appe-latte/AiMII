@@ -20,7 +20,7 @@ struct RecentView: View {
         VStack {
             HStack {
                 Text("Recent Chats")
-                    .font(.system(size: 16, weight: .heavy, design: .rounded))
+                    .font(.system(size: 16, weight: .bold, design: .monospaced))
                     .kerning(1)
                     .textCase(.uppercase)
                     .foregroundColor(ai_black)
@@ -43,7 +43,7 @@ struct RecentView: View {
                         
                         if item.sender == "user" {
                             Text("\(item.content!)")
-                                .font(.system(size: 14))
+                                .font(.system(size: 14, design: .monospaced))
                                 .foregroundColor(.black)
                                 .padding()
                                 .background(.white.opacity(0.5))

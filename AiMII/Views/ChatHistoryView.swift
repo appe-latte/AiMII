@@ -19,9 +19,9 @@ struct ChatHistoryView: View {
                 
                 messagesScrollView
             }
-            //            .background(background())
+            .background(background())
         }
-        .navigationBarHidden(true) // Ensures the custom header is used instead of the default Navigation Bar
+        .navigationBarHidden(true)
     }
     
     // MARK: - Components
@@ -30,9 +30,9 @@ struct ChatHistoryView: View {
             backButton
             
             Text("Chat History")
-                .font(.title2)
-                .bold()
-                .foregroundColor(.white)
+                .font(.system(size: 23, weight: .bold, design: .monospaced))
+                .foregroundStyle(ai_white)
+                .kerning(1.25)
             
             Spacer()
         }
@@ -69,8 +69,25 @@ struct ChatHistoryView: View {
         // Conversion from StoredMessage to Messages model
         Messages(id: UUID(), role: storedMessage.sender == "user" ? .user : .assistant, content: storedMessage.content ?? "", createAt: storedMessage.date ?? Date())
     }
+    
+    // MARK: Background
+    @ViewBuilder
+    func background() -> some View {
+        GeometryReader { proxy in
+            let size = proxy.size
+            
+            Image("bg-img")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .offset(y: -50)
+                .frame(width: size.width, height: size.height + 50)
+                .clipped()
+        }
+        .edgesIgnoringSafeArea(.all)
+    }
 }
 
+// MARK: Message View
 struct MessageView: View {
     var msg: Messages
     
@@ -117,22 +134,6 @@ struct MessageView: View {
                 .cornerRadius(10)
         }
         .buttonStyle(.plain)
-    }
-    
-    // MARK: Background
-    @ViewBuilder
-    func background() -> some View {
-        GeometryReader { proxy in
-            let size = proxy.size
-            
-            Image("bg-img")
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .offset(y: -50)
-                .frame(width: size.width, height: size.height + 50)
-                .clipped()
-        }
-        .edgesIgnoringSafeArea(.all)
     }
 }
 

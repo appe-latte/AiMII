@@ -1,33 +1,19 @@
 //
-//  ArisiumApp.swift
-//  Arisium
+//  AiMiiApp.swift
+//  AiMII
 //
 //  Created by Stanford L. Khumalo on 2024-02-28.
 //
 
 import SwiftUI
 import Foundation
+import CoreData
 import FirebaseCore
 import GoogleSignIn
 
-class AppDelegate: NSObject, UIApplicationDelegate {
-    func application(_ application: UIApplication,
-                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-        FirebaseApp.configure()
-        return true
-    }
-    
-    func application(_ app: UIApplication,
-                     open url: URL,
-                     options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
-        return GIDSignIn.sharedInstance.handle(url)
-    }
-}
-
 @main
-struct ArisiumApp: App {
+struct AiMIIApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-    
     @StateObject private var dataController = LocalData()
     
     init() {
@@ -46,9 +32,7 @@ struct ArisiumApp: App {
     var body: some Scene {
         WindowGroup {
             LandingView()
-                .environment(\.managedObjectContext,
-                              dataController.container.viewContext)
-                .preferredColorScheme(.dark)
+                .environment(\.managedObjectContext, dataController.container.viewContext)
         }
     }
 }

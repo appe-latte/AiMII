@@ -11,25 +11,26 @@ import FirebaseFirestore
 
 struct UserChatView: View {
     @Binding var quote: String
-     @Binding var isAutomation: Bool
-     @Binding var trending: Bool
-
-     @State private var isRecent = false
-     @State private var userName = "AiMII User"  // Default username
-     @State private var avatar = UserDefaults.standard.string(forKey: "PROFILE") ?? "avt1"
-
-     @StateObject private var dataController = LocalData()
+    @Binding var isAutomation: Bool
+    @Binding var trending: Bool
+    
+    @State private var isRecent = false
+    @State private var userName = "AiMII User"  // Default username
+    @State private var avatar = UserDefaults.standard.string(forKey: "PROFILE") ?? "avt1"
+    
+    @StateObject private var dataController = LocalData()
     
     var body: some View {
         NavigationView {
             VStack {
                 userHeader
+                
                 ScrollView {
                     // MARK: Recent Searches Section
                     recentSearches
                     
                     // MARK: Automation Section
-//                    automationSection
+                    //                    automationSection
                     
                     // MARK: Trending Prompts Section
                     trendingSection
@@ -38,7 +39,7 @@ struct UserChatView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(background())
-            .foregroundColor(.white)
+            .foregroundColor(ai_white)
             .navigationTitle("Chat")
             .navigationBarHidden(true)
         }
@@ -47,14 +48,13 @@ struct UserChatView: View {
     private var userHeader: some View {
         HStack {
             VStack(alignment: .leading, spacing: 5) {
-                Text("Good Morning,")
-                    .font(.system(size: 16, weight: .semibold, design: .rounded))
+                Text("Hello,")
+                    .font(.system(size: 16, weight: .bold, design: .monospaced))
                     .kerning(1)
-                    .textCase(.uppercase)
                     .foregroundColor(ai_black)
                 
                 Text(userName)
-                    .font(.system(size: 22, weight: .heavy, design: .rounded))
+                    .font(.system(size: 18, weight: .heavy, design: .monospaced))
                     .kerning(1)
                     .foregroundColor(ai_black)
             }
@@ -79,9 +79,9 @@ struct UserChatView: View {
     
     private var recentSearches: some View {
         NavigationLink(destination: ChatHistoryView(isChatView: $isRecent)
-                        .environment(\.managedObjectContext, dataController.container.viewContext)) {
-            RecentView(isClick: $isRecent)
-        }
+            .environment(\.managedObjectContext, dataController.container.viewContext)) {
+                RecentView(isClick: $isRecent)
+            }
     }
     
     private var automationSection: some View {
@@ -93,22 +93,22 @@ struct UserChatView: View {
     }
     
     // MARK: Fetch the username from Firebase
-        private func fetchUsername() {
-            let db = Firestore.firestore()
-            let userId = UserDefaults.standard.string(forKey: "UID") ?? ""
-
-            db.collection("USERS").document(userId).getDocument { document, error in
-                if let document = document, document.exists {
-                    let data = document.data()
-                    if let fetchedUsername = data?["NAME"] as? String {
-                        self.userName = fetchedUsername
-                    }
-                } else {
-                    print("Document does not exist")
-                    // Handle errors or absence of data as needed
+    private func fetchUsername() {
+        let db = Firestore.firestore()
+        let userId = UserDefaults.standard.string(forKey: "UID") ?? ""
+        
+        db.collection("USERS").document(userId).getDocument { document, error in
+            if let document = document, document.exists {
+                let data = document.data()
+                if let fetchedUsername = data?["NAME"] as? String {
+                    self.userName = fetchedUsername
                 }
+            } else {
+                print("Document does not exist")
+                // Handle errors or absence of data as needed
             }
         }
+    }
     
     // MARK: Background
     @ViewBuilder
