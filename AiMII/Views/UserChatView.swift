@@ -39,12 +39,12 @@ struct UserChatView: View {
                 Text("Hello,")
                     .font(.system(size: 16, weight: .bold, design: .monospaced))
                     .kerning(1)
-                    .foregroundColor(ai_black)
+                    .foregroundColor(ai_white)
                 
                 Text(userName)
                     .font(.system(size: 18, weight: .bold, design: .monospaced))
                     .kerning(1)
-                    .foregroundColor(ai_black)
+                    .foregroundColor(ai_white)
             }
             
             Spacer()
@@ -56,12 +56,13 @@ struct UserChatView: View {
                 Image(systemName: "plus")
                     .fontWeight(.heavy)
                     .padding()
-                    .background(ai_black)
+                    .background(ai_white)
                     .clipShape(Circle())
-                    .foregroundColor(ai_white)
+                    .foregroundColor(ai_black)
             }
         }
         .padding()
+        .background(ai_black)
     }
     
     private var recentSearches: some View {
