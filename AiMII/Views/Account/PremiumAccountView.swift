@@ -13,22 +13,20 @@ struct PremiumAccountView: View {
     
     var body: some View {
         ScrollView(showsIndicators: false) {
-            VStack(spacing: 15) {
+            VStack(spacing: 20) {
                 
                 closeButton
                 
-                VStack {
+                VStack(alignment: .leading, spacing: 5) {
                     Text("Upgrade to AiMII+")
-                        .font(.system(size: 32, weight: .heavy, design: .rounded))
+                        .font(.system(size: 32, weight: .heavy, design: .monospaced))
                     
-                    
-                    Text("And enjoy access to all features of AiMII, including:")
-                        .font(.footnote)
-                        .fontWeight(.semibold)
+                    Text("and enjoy access to all features of AiMII, including:")
+                        .font(.system(size: 15, weight: .semibold, design: .monospaced))
                 }
                 .foregroundColor(ai_black)
                 .multilineTextAlignment(.leading)
-                .kerning(3)
+                .kerning(1.0)
                 
                 // MARK: Description of Premium Features
                 premiumFeatures
@@ -78,73 +76,73 @@ struct PremiumAccountView: View {
     
     // MARK: Premium Features
     private var premiumFeatures: some View {
-        VStack(alignment: .leading, spacing: 10) {
+        VStack(alignment: .leading, spacing: 20) {
             // Benefit 1
-            HStack(spacing: 5) {
-                Image(systemName: "checkmark.seal.fill")
+            HStack(spacing: 10) {
+                Image("prime")
                     .padding(8)
                     .background(ai_black)
                     .foregroundColor(ai_white)
                     .clipShape(Circle())
                 
                 Text("Access to Chat GPT-4: The latest, most powerful AI.")
-                    .font(.system(size: 12, weight: .medium, design: .rounded))
+                    .font(.system(size: 12, weight: .medium, design: .monospaced))
                     .kerning(2)
                     .foregroundColor(ai_black)
             }
             
             // Benefit 2
-            HStack(spacing: 5) {
-                Image(systemName: "checkmark.seal.fill")
+            HStack(spacing: 10) {
+                Image("prime")
                     .padding(8)
                     .background(ai_black)
                     .foregroundColor(ai_white)
                     .clipShape(Circle())
                 
                 Text("Ad-free experience.")
-                    .font(.system(size: 12, weight: .medium, design: .rounded))
+                    .font(.system(size: 12, weight: .medium, design: .monospaced))
                     .kerning(2)
                     .foregroundColor(ai_black)
             }
             
             // Benefit 3
-            HStack(spacing: 5) {
-                Image(systemName: "checkmark.seal.fill")
+            HStack(spacing: 10) {
+                Image("prime")
                     .padding(8)
                     .background(ai_black)
                     .foregroundColor(ai_white)
                     .clipShape(Circle())
                 
                 Text("Priority support and updates.")
-                    .font(.system(size: 12, weight: .medium, design: .rounded))
+                    .font(.system(size: 12, weight: .medium, design: .monospaced))
                     .kerning(2)
                     .foregroundColor(ai_black)
             }
             
             // Benefit 4
-            HStack(spacing: 5) {
-                Image(systemName: "checkmark.seal.fill")
+            HStack(spacing: 10) {
+                Image("prime")
                     .padding(8)
                     .background(ai_black)
                     .foregroundColor(ai_white)
                     .clipShape(Circle())
                 
                 Text("More accurate, detailed responses.")
-                    .font(.system(size: 12, weight: .medium, design: .rounded))
+                    .font(.system(size: 12, weight: .medium, design: .monospaced))
                     .kerning(2)
                     .foregroundColor(ai_black)
             }
             
             // Benefit 5
-            HStack(spacing: 5) {
-                Image(systemName: "checkmark.seal.fill")
+            HStack(spacing: 10) {
+                Image("prime")
                     .padding(8)
                     .background(ai_black)
                     .foregroundColor(ai_white)
                     .clipShape(Circle())
                 
                 Text("Advanced understanding of context and nuance.")
-                    .font(.system(size: 12, weight: .medium, design: .rounded))
+                    .font(.system(size: 12, weight: .medium, design: .monospaced))
                     .kerning(2)
                     .foregroundColor(ai_black)
             }
@@ -176,7 +174,7 @@ struct PremiumAccountView: View {
                         }
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(ai_red)
+                        .background(ai_black)
                         .clipShape(Capsule())
                     }
                 }

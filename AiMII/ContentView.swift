@@ -50,7 +50,7 @@ struct ContentView: View {
                                     selectedIndex = 0
                                 } label: {
                                     VStack(spacing: 5) {
-                                        Image(systemName: "house")
+                                        Image("home")
                                             .font(.subheadline)
                                         
                                         Text("Home")
@@ -64,7 +64,7 @@ struct ContentView: View {
                                     selectedIndex = 1
                                 } label: {
                                     VStack(spacing: 5) {
-                                        Image(systemName: "book.pages")
+                                        Image("history")
                                             .font(.subheadline)
                                         
                                         Text("History")
@@ -78,7 +78,7 @@ struct ContentView: View {
                                     selectedIndex = 2
                                 } label: {
                                     VStack(spacing: 5) {
-                                        Image(systemName: "chart.line.uptrend.xyaxis")
+                                        Image("trending")
                                             .font(.subheadline)
                                         
                                         Text("Trending")
@@ -92,7 +92,7 @@ struct ContentView: View {
                                     selectedIndex = 3
                                 } label: {
                                     VStack(spacing: 5) {
-                                        Image(systemName: "gear")
+                                        Image("settings")
                                             .font(.subheadline)
                                         
                                         Text("Settings")
@@ -114,7 +114,6 @@ struct ContentView: View {
                         }
                         .frame(maxWidth: .infinity, maxHeight: 150, alignment: .bottomLeading)
                     }
-                    //                    .ignoresSafeArea()
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(background())

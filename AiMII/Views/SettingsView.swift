@@ -99,7 +99,7 @@ struct SettingsView: View {
                         Button {
                             isAvatar.toggle()
                         } label: {
-                            ItemCard(title: "My Account", icon: "person", subtitle: "Edit your user profile.")
+                            ItemCard(title: "My Account", icon: "profile", subtitle: "Edit your user profile.")
                         }
                         .foregroundColor(ai_white)
                         .buttonStyle(.plain)
@@ -114,7 +114,7 @@ struct SettingsView: View {
                         Button {
                             openURL(URL(string: "mailto:hello@appe-latte.ca")!)
                         } label: {
-                            ItemCard(title: "Send Feedback", icon: "ellipsis.message", subtitle: "Send us your feedback.")
+                            ItemCard(title: "Send Feedback", icon: "message", subtitle: "Send us your feedback.")
                         }
                         .foregroundColor(ai_white)
                         .buttonStyle(.plain)
@@ -123,14 +123,14 @@ struct SettingsView: View {
                         Button {
                             openURL(URL(string: "https://www.apple.com")!)
                         } label: {
-                            ItemCard(title: "Privacy Policy", icon: "checkerboard.shield", subtitle: "Link to our privacy policy.")
+                            ItemCard(title: "Privacy Policy", icon: "policy", subtitle: "Link to our privacy policy.")
                         }
                         .foregroundColor(ai_white)
                         .buttonStyle(.plain)
                         
                         // MARK: App Rating - button
                         Button {
-                            openURL(URL(string: "mailto:hello@appe-latte.ca")!)
+                            openURL(URL(string: "mailto:feedback@appe-latte.ca")!)
                         } label: {
                             ItemCard(title: "Rate This App", icon: "star", subtitle: "Rate us in the app store.")
                         }
@@ -141,7 +141,7 @@ struct SettingsView: View {
                         Button(action: {
                             isPresentingShareSheet = true
                         }) {
-                            ItemCard(title: "Share App", icon: "square.and.arrow.up", subtitle: "Love our app? Share it with your friends.")
+                            ItemCard(title: "Share App", icon: "share", subtitle: "Love our app? Share it with your friends.")
                         }
                         .sheet(isPresented: $isPresentingShareSheet) {
                             ActivityView(activityItems: ["Check out this link: https://example.com"])
@@ -153,7 +153,7 @@ struct SettingsView: View {
                         Button {
                             //
                         } label: {
-                            ItemCard(title: "Log Out", icon: "door.left.hand.open", subtitle: "Log out of the app.")
+                            ItemCard(title: "Log Out", icon: "logout", subtitle: "Log out of the app.")
                         }
                         .foregroundColor(ai_white)
                         .buttonStyle(.plain)
@@ -162,7 +162,7 @@ struct SettingsView: View {
                         Button {
                             isDeleteDialog.toggle()
                         } label: {
-                            DeleteAccountCard(title: "Delete Account", icon: "trash", subtitle: "Permanently close and delete your account.")
+                            DeleteAccountCard(title: "Delete Account", icon: "alert", subtitle: "Permanently close and delete your account.")
                         }
                         .foregroundColor(ai_red)
                         .buttonStyle(.plain)
@@ -312,7 +312,7 @@ struct ItemCard: View {
     var body: some View {
         VStack(spacing: 5) {
             HStack(spacing: 15) {
-                Image(systemName: icon)
+                Image(icon)
                     .fontWeight(.bold)
                     .padding(10)
                     .background(ai_black)
@@ -356,7 +356,7 @@ struct DeleteAccountCard: View {
     var body: some View {
         VStack(spacing: 5) {
             HStack(spacing: 15) {
-                Image(systemName: icon)
+                Image("alert")
                     .fontWeight(.bold)
                     .padding(10)
                     .background(ai_red)
