@@ -86,7 +86,7 @@ struct PremiumAccountView: View {
                     .clipShape(Circle())
                 
                 Text("Access to Chat GPT-4: The latest, most powerful AI.")
-                    .font(.system(size: 12, weight: .medium, design: .monospaced))
+                    .font(.system(size: 12, weight: .semibold, design: .monospaced))
                     .kerning(2)
                     .foregroundColor(ai_black)
             }
@@ -100,7 +100,7 @@ struct PremiumAccountView: View {
                     .clipShape(Circle())
                 
                 Text("Ad-free experience.")
-                    .font(.system(size: 12, weight: .medium, design: .monospaced))
+                    .font(.system(size: 12, weight: .semibold, design: .monospaced))
                     .kerning(2)
                     .foregroundColor(ai_black)
             }
@@ -114,7 +114,7 @@ struct PremiumAccountView: View {
                     .clipShape(Circle())
                 
                 Text("Priority support and updates.")
-                    .font(.system(size: 12, weight: .medium, design: .monospaced))
+                    .font(.system(size: 12, weight: .semibold, design: .monospaced))
                     .kerning(2)
                     .foregroundColor(ai_black)
             }
@@ -128,7 +128,7 @@ struct PremiumAccountView: View {
                     .clipShape(Circle())
                 
                 Text("More accurate, detailed responses.")
-                    .font(.system(size: 12, weight: .medium, design: .monospaced))
+                    .font(.system(size: 12, weight: .semibold, design: .monospaced))
                     .kerning(2)
                     .foregroundColor(ai_black)
             }
@@ -142,7 +142,7 @@ struct PremiumAccountView: View {
                     .clipShape(Circle())
                 
                 Text("Advanced understanding of context and nuance.")
-                    .font(.system(size: 12, weight: .medium, design: .monospaced))
+                    .font(.system(size: 12, weight: .semibold, design: .monospaced))
                     .kerning(2)
                     .foregroundColor(ai_black)
             }
