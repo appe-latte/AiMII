@@ -9,11 +9,10 @@ import SwiftUI
 import FirebaseCore
 import FirebaseFirestore
 import FirebaseAuth
+import CoreData
+import Foundation
 
 struct SettingsView: View {
-    @Environment(\.presentationMode) var presentationMode
-    @Environment(\.openURL) var openURL
-    
     @State var avatar = UserDefaults.standard.string(forKey: "PROFILE") ?? "avt1"
     @State var first = UserDefaults.standard.string(forKey: "NAME") ?? "AiMII user"
     
@@ -23,6 +22,10 @@ struct SettingsView: View {
     @State var isAvatar = false
     @State var isChatHistory = false
     @State private var isPresentingShareSheet = false
+    
+    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.openURL) var openURL
     
     var body: some View {
         if isChatHistory {
@@ -119,15 +122,6 @@ struct SettingsView: View {
                         .foregroundColor(ai_white)
                         .buttonStyle(.plain)
                         
-                        // MARK: Privacy Policy
-                        Button {
-                            openURL(URL(string: "https://www.apple.com")!)
-                        } label: {
-                            ItemCard(title: "Privacy Policy", icon: "policy", subtitle: "Link to our privacy policy.")
-                        }
-                        .foregroundColor(ai_white)
-                        .buttonStyle(.plain)
-                        
                         // MARK: App Rating - button
                         Button {
                             openURL(URL(string: "mailto:feedback@appe-latte.ca")!)
@@ -145,6 +139,15 @@ struct SettingsView: View {
                         }
                         .sheet(isPresented: $isPresentingShareSheet) {
                             ActivityView(activityItems: ["Check out this link: https://example.com"])
+                        }
+                        .foregroundColor(ai_white)
+                        .buttonStyle(.plain)
+                        
+                        // MARK: Clear Cache
+                        Button {
+                            openURL(URL(string: "https://www.apple.com")!)
+                        } label: {
+                            ItemCard(title: "Clear Chat History", icon: "policy", subtitle: "Delete cache and all stored chats from the app.")
                         }
                         .foregroundColor(ai_white)
                         .buttonStyle(.plain)
@@ -302,6 +305,20 @@ struct SettingsView: View {
         }
         .edgesIgnoringSafeArea(.all)
     }
+    
+    // MARK: Clear Cache method
+    func clearChatCache() {
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "YourEntityName")
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        
+        do {
+            try viewContext.execute(deleteRequest)
+            try viewContext.save()
+        } catch let error as NSError {
+            // Handle error
+            print("Error clearing cache: \(error), \(error.userInfo)")
+        }
+    }
 }
 
 struct ItemCard: View {
@@ -422,3 +439,4 @@ extension UIApplication {
         return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
     }
 }
+

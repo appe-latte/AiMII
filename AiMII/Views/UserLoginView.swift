@@ -20,6 +20,7 @@ struct UserLoginView: View {
     @State var email : String = ""
     @State var password : String = ""
     @State var userName : String = ""
+    @State var avatarName : String = ""
     
     @State var isUserSignedUp = false
     @State var isUserSignedIn = false
@@ -90,62 +91,33 @@ struct UserLoginView: View {
                                     HStack {
                                         Button {
                                             if isUserSignedUp {
-                                                Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
-                                                    if error != nil {
-                                                        print(error?.localizedDescription ?? "")
-                                                        isLoading.toggle()
-                                                    } else {
-                                                        let db = Firestore.firestore()
-                                                        let data : [String: Any] = [
-                                                            "NAME" : userName,
-                                                            "EMAIL" : email,
-                                                            "PROFILE" : "avt1",
-                                                        ]
-                                                        
-                                                        UserDefaults.standard.set(result?.user.uid, forKey: "UID")
-                                                        UserDefaults.standard.set(userName, forKey: "NAME")
-                                                        UserDefaults.standard.set("avt1", forKey: "PROFILE")
-                                                        UserDefaults.standard.set(email, forKey: "EMAIL")
-                                                        
-                                                        db.collection("USERS").addDocument(data: data)
-                                                        isLoading.toggle()
-                                                        isUserSignedIn.toggle()
-                                                        
+                                                isLoading = true
+                                                Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+                                                    guard let user = authResult?.user, error == nil else {
+                                                        print(error?.localizedDescription ?? "An error occurred")
+                                                        isLoading = false
+                                                        return
                                                     }
-                                                }
-                                            } else {
-                                                UserDefaults.standard.setValue(email, forKey: "EMAIL")
-                                                isCompleted.toggle()
-                                                
-                                                Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
-                                                    if error != nil {
-                                                        print(error?.localizedDescription ?? "")
-                                                        isLoading.toggle()
-                                                        
-                                                    } else {
-                                                        
-                                                        Firestore.firestore().collection("USERS").document(result?.user.uid ?? "").getDocument { (document, error) in
-                                                            if let document = document, document.exists {
-                                                                
-                                                                let name = document.get("NAME") as? String ?? ""
-                                                                let profile = document.get("PROFILE") as? String ?? ""
-                                                                
-                                                                UserDefaults.standard.set(name, forKey: "NAME")
-                                                                UserDefaults.standard.set(result?.user.uid, forKey: "UID")
-                                                                UserDefaults.standard.set(profile, forKey: "PROFILE")
-                                                                UserDefaults.standard.set(email, forKey: "EMAIL")
-                                                                
-                                                                isLoading.toggle()
-                                                                
-                                                                isUserSignedIn.toggle()
-                                                                
-                                                                
-                                                            } else {
-                                                                isLoading.toggle()
-                                                                
-                                                                print("Document does not exist")
-                                                            }
+                                                    let db = Firestore.firestore()
+                                                    let userData: [String: Any] = [
+                                                        "NAME": userName,
+                                                        "EMAIL": email,
+                                                        "PROFILE": avatarName,
+                                                    ]
+                                                    
+                                                    // Use the UID as the document ID for the user profile
+                                                    db.collection("USERS").document(user.uid).setData(userData) { error in
+                                                        if let error = error {
+                                                            print("Error writing document: \(error)")
+                                                        } else {
+                                                            print("Document successfully written!")
+                                                            UserDefaults.standard.set(user.uid, forKey: "UID")
+                                                            UserDefaults.standard.set(userName, forKey: "NAME")
+                                                            UserDefaults.standard.set(avatarName, forKey: "PROFILE")
+                                                            UserDefaults.standard.set(email, forKey: "EMAIL")
+                                                            isUserSignedIn = true
                                                         }
+                                                        isLoading = false
                                                     }
                                                 }
                                             }

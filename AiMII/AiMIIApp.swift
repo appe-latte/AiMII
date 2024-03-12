@@ -28,7 +28,6 @@ struct AiMIIApp: App {
         }
     }
     
-    
     var body: some Scene {
         WindowGroup {
             LandingView()
