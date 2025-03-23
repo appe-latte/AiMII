@@ -1,0 +1,6 @@
+framework module Pods_AiMII {
+  umbrella header "Pods-AiMII-umbrella.h"
+
+  export *
+  module * { export * }
+}
